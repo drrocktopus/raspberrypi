@@ -1,0 +1,10 @@
+.cache
+.config
+.local
+.ssh
+.bash_history
+.bash_logout
+.bash_history
+.bashrc
+gitssh
+gitssh.pub
