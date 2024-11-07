@@ -1,0 +1,56 @@
+   324.3ms (setup:755): 2024-11-05 18:30:35
+   324.6ms (setup:756): /usr/bin/pipx install docker-compose
+   324.7ms (setup:757): pipx version is 1.1.0
+   324.8ms (setup:758): Default python interpreter is '/usr/bin/python3'
+   324.9ms (mkdir:81): creating directory /home/gilman/.local/pipx/venvs
+   325.2ms (mkdir:81): creating directory /home/gilman/.local/bin
+   325.4ms (mkdir:81): creating directory /home/gilman/.local/pipx/.cache
+   325.7ms (setup:766): Adding CACHEDIR.TAG to cache directory
+   328.0ms (package_name_from_spec:323): Determined package name: docker-compose
+   328.1ms (package_name_from_spec:324): Package name determined in 0.0s
+   329.2ms (run_subprocess:173): running /usr/bin/python3 -m venv --without-pip /home/gilman/.local/pipx/venvs/docker-compose
+   469.5ms (run_subprocess:186): stdout:
+   469.8ms (run_subprocess:188): stderr:
+   469.8ms (run_subprocess:189): returncode: 0
+   470.9ms (run_subprocess:173): running /usr/bin/python3 -m venv --clear /home/gilman/.local/pipx/shared
+ 11430.9ms (run_subprocess:186): stdout:
+ 11431.2ms (run_subprocess:188): stderr:
+ 11431.2ms (run_subprocess:189): returncode: 0
+ 11431.9ms (upgrade:91): Upgrading shared libraries in /home/gilman/.local/pipx/shared
+ 11432.6ms (run_subprocess:173): running /home/gilman/.local/pipx/shared/bin/python -m pip --disable-pip-version-check install --force-reinstall -q --upgrade pip setuptools wheel
+ 24066.1ms (run_subprocess:186): stdout:
+ 24066.3ms (run_subprocess:188): stderr:
+ 24066.4ms (run_subprocess:189): returncode: 0
+ 24066.9ms (run_subprocess:173): running /home/gilman/.local/pipx/venvs/docker-compose/bin/python -c import sysconfig; print(sysconfig.get_path('purelib'))
+ 24106.0ms (run_subprocess:186): stdout: /home/gilman/.local/pipx/venvs/docker-compose/lib/python3.11/site-packages
+ 24106.2ms (run_subprocess:189): returncode: 0
+ 24106.6ms (run_subprocess:173): running /home/gilman/.local/pipx/shared/bin/python -c import sysconfig; print(sysconfig.get_path('purelib'))
+ 24148.4ms (run_subprocess:186): stdout: /home/gilman/.local/pipx/shared/lib/python3.11/site-packages
+ 24148.6ms (run_subprocess:189): returncode: 0
+ 24149.2ms (run_subprocess:173): running /home/gilman/.local/pipx/venvs/docker-compose/bin/python --version
+ 24152.0ms (run_subprocess:186): stdout: Python 3.11.2
+ 24152.2ms (run_subprocess:188): stderr:
+ 24152.3ms (run_subprocess:189): returncode: 0
+ 24152.8ms (_parsed_package_to_package_or_url:128): cleaned package spec: docker-compose
+ 24153.6ms (run_subprocess:173): running /home/gilman/.local/pipx/venvs/docker-compose/bin/python -m pip install docker-compose
+ 39935.5ms (run_subprocess:189): returncode: 1
+ 39936.1ms (subprocess_post_check_handle_pip_error:335): '/home/gilman/.local/pipx/venvs/docker-compose/bin/python -m pip install docker-compose' failed
+ 39936.7ms (subprocess_post_check_handle_pip_error:352): Fatal error from pip prevented installation. Full pip output in file:
+    /home/gilman/.local/pipx/logs/cmd_2024-11-05_18.30.35_pip_errors.log
+ 39940.9ms (analyze_pip_output:310): pip seemed to fail to build package:
+    PyYAML<6,>=3.10
+ 39941.9ms (rmdir:55): removing directory /home/gilman/.local/pipx/venvs/docker-compose
+ 39943.6ms (cli:822): PipxError: Error installing docker-compose.
+Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/pipx/main.py", line 819, in cli
+    return run_pipx_command(parsed_pipx_args)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pipx/main.py", line 202, in run_pipx_command
+    return commands.install(
+           ^^^^^^^^^^^^^^^^^
+  File "/usr/lib/python3/dist-packages/pipx/commands/install.py", line 60, in install
+    venv.install_package(
+  File "/usr/lib/python3/dist-packages/pipx/venv.py", line 240, in install_package
+    raise PipxError(
+pipx.util.PipxError: Error installing docker-compose.
+ 39946.0ms (cli:830): pipx finished.

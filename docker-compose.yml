@@ -1,0 +1,110 @@
+version: '3.8'
+services:
+  plex:
+    image: linuxserver/plex
+    container_name: plex
+    network_mode: host
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - VERSION=docker
+    volumes:
+      - /mnt/plex:/media
+      - /path/to/config/plex:/config
+    restart: unless-stopped
+
+  deluge:
+    image: linuxserver/deluge
+    container_name: deluge
+    ports:
+      - 8112:8112
+      - 58846:58846
+      - 58946:58946
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=Etc/UTC
+    volumes:
+      - /path/to/config/deluge:/config
+      - /mnt/plex/torrents:/downloads
+    restart: unless-stopped
+
+  pihole:
+    image: pihole/pihole
+    container_name: pihole
+    environment:
+      - TZ=Etc/UTC
+      - WEBPASSWORD=yourpassword
+    volumes:
+      - /path/to/config/pihole:/etc/pihole
+      - /path/to/config/dnsmasq.d:/etc/dnsmasq.d
+    ports:
+      - 53:53/tcp
+      - 53:53/udp
+      - 67:67/udp
+      - 80:80/tcp
+      - 443:443/tcp
+    restart: unless-stopped
+
+  homeassistant:
+    image: homeassistant/home-assistant
+    container_name: homeassistant
+    environment:
+      - TZ=Etc/UTC
+    volumes:
+      - /path/to/config/homeassistant:/config
+    restart: unless-stopped
+    network_mode: host
+
+  tailscale:
+    image: tailscale/tailscale
+    container_name: tailscale
+    environment:
+      - TS_AUTH_KEY=your-auth-key
+    volumes:
+      - /dev/net/tun:/dev/net/tun
+      - /path/to/config/tailscale:/var/lib/tailscale
+    network_mode: host
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  samba:
+    image: dperson/samba
+    container_name: samba
+    environment:
+      - TZ=Etc/UTC
+    volumes:
+      - /mnt/plex/torrents/watch:/mnt/plex/torrents/watch
+    ports:
+      - 137:137/udp
+      - 138:138/udp
+      - 139:139/tcp
+      - 445:445/tcp
+    command: '-s "watch;/mnt/plex/torrents/watch;yes;no;no;all"'
+    restart: unless-stopped
+  portainer:
+    image: portainer/portainer-ce
+    container_name: portainer
+    ports:
+      - 9000:9000
+    volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /path/to/portainer/data:/data
+    restart: unless-stopped
+ # nextcloud:
+ #   image: nextcloud
+ #   container_name: nextcloud
+ #   ports:
+ #     - 8080:80
+ #   environment:
+ #     - MYSQL_PASSWORD=example
+ #     - MYSQL_DATABASE=nextcloud
+ #     - MYSQL_USER=nextcloud
+ #     - MYSQL_HOST=db
+ #   volumes:
+ #     - nextcloud:/var/www/html
+ #   depends_on:
+#      - db
+ #   restart: unless-stopped
+#
